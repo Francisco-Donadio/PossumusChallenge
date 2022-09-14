@@ -7,54 +7,25 @@
 
 import UIKit
 
-class AlbumViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AlbumViewController: UIViewController {
 
-    var albumModel: AlbumModel?
-
-    let tableView: UITableView = {
-        let table = UITableView(frame: .zero, style: .grouped)
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        return table
-    }()
+    @IBOutlet weak var tableView: UITableView!
+    
+    var albums: [Albums] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        performAlbumRequest { (albums) in
-            for album in albums {
-                print(album.title!)
-            }
-        }
-        view.addSubview(tableView)
-        tableView.frame = view.bounds
         tableView.delegate = self
         tableView.dataSource = self
+        
+        performAlbumRequest { albums in
+            self.albums = albums
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
     
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return albumModel?.data.count ?? 0
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        if let albumModel = albumModel {
-            return albumModel.data.count
-        }
-        return 0
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        performAlbumRequest { (albums) in
-            
-        }
-        let text = self.albumModel?.data[indexPath.section].title
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = text
-        return cell
-    }
-
-
     func performAlbumRequest(completionHandler: @escaping ([Albums]) -> Void) {
         let url = URL(string: "https://jsonplaceholder.typicode.com/albums")!
         
@@ -73,31 +44,29 @@ class AlbumViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
 }
 
+extension AlbumViewController: UITableViewDelegate, UITableViewDataSource {
     
-
-
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "AlbumCell")
+        let album = self.albums[indexPath.row]
+        cell.detailTextLabel?.text = album.title
+        return cell
+    }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let album = albums[indexPath.row]
+        let detailViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AlbumDetailViewController") as! AlbumDetailViewController
+        detailViewController.albumId = album.id
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return albums.count
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     
     
     
@@ -109,3 +78,18 @@ class AlbumViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
