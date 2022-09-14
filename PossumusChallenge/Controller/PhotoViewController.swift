@@ -54,10 +54,11 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
-//        let url = URL(string: photos[indexPath.row].thumbnailUrl)
-//        cell.image.kf.setImage(with: url)
-//        cell.albumTitle.text = albums[indexPath.row].title
-//        cell.imageTitle.text = photos[indexPath.row].title
+        let url = URL(string: photos[indexPath.item].thumbnailUrl)
+        cell.image.kf.setImage(with: url)
+        cell.albumTitle.text = albums[indexPath.item].title.capitalized
+        cell.imageTitle.text = photos[indexPath.item].title.capitalized
+        print(indexPath.row)
         return cell
     }
     
@@ -70,7 +71,7 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let h = 150.0
+        let h = 300.0
         let w = view.frame.width
         return CGSize(width: h, height: w)
     }

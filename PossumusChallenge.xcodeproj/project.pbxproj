@@ -108,6 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				A1FA0CEB28CF7603004760CA /* Main.storyboard */,
+				A19EA54F28D23E6F00330A23 /* PhotoCell.swift */,
+				A19EA54B28D1FF4D00330A23 /* PhotoCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -117,9 +119,7 @@
 			children = (
 				A1FA0CE928CF7603004760CA /* AlbumViewController.swift */,
 				A19EA54728D15C1B00330A23 /* AlbumDetailViewController.swift */,
-				A19EA54B28D1FF4D00330A23 /* PhotoCollectionViewCell.swift */,
 				A19EA54D28D232CD00330A23 /* PhotoViewController.swift */,
-				A19EA54F28D23E6F00330A23 /* PhotoCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
