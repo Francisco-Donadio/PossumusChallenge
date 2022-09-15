@@ -13,6 +13,10 @@ class PhotoViewController: UIViewController {
     var albums: [Albums] = []
     var photos: [Photos] = []
     var albumId: Int = 0
+    var photoURL: String = ""
+    var phototitle: String = ""
+    var albumTitle: String = ""
+    
     
     @IBOutlet weak var photoView: UICollectionView!
 
@@ -54,11 +58,11 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
-        let url = URL(string: photos[indexPath.item].thumbnailUrl)
+        let url = URL(string: photoURL)
         cell.image.kf.setImage(with: url)
-        cell.albumTitle.text = albums[indexPath.item].title.capitalized
-        cell.imageTitle.text = photos[indexPath.item].title.capitalized
-        print(indexPath.row)
+        cell.albumTitle.text = "Album Title: \(albumTitle)"
+        cell.imageTitle.text = "Photo Title: \(phototitle)"
+        print(phototitle)
         return cell
     }
     

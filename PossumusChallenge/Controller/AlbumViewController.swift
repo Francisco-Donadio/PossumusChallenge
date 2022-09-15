@@ -55,9 +55,9 @@ extension AlbumViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let album = albums[indexPath.row]
-        print(album.id)
         let detailViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AlbumDetailViewController") as! AlbumDetailViewController
         detailViewController.albumId = album.id
+        detailViewController.albumTitle = album.title
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
     

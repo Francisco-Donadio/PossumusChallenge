@@ -15,6 +15,7 @@ class AlbumDetailViewController: UIViewController {
     var albums: [Albums] = []
     var photos: [Photos] = []
     var albumId: Int = 0
+    var albumTitle: String = ""
     
     override func viewDidLoad() {
         
@@ -77,9 +78,12 @@ extension AlbumDetailViewController: UICollectionViewDataSource, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let album = albums[indexPath.row]
+        let photo = photos[indexPath.row]
         let photoViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotoViewController") as! PhotoViewController
-        photoViewController.albumId = album.id
+        photoViewController.albumId = photo.albumId
+        photoViewController.photoURL = photo.url
+        photoViewController.phototitle = photo.title
+        photoViewController.albumTitle = albumTitle
         self.navigationController?.pushViewController(photoViewController, animated: true)
     }
 }
