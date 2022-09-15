@@ -26,6 +26,9 @@ class PhotoViewController: UIViewController {
         photoView.delegate = self
         photoView.dataSource = self
         
+        let layout = UICollectionViewFlowLayout()
+        photoView.collectionViewLayout = layout
+        
         performPhotoDetailRequest { photos in
             self.photos = photos
             DispatchQueue.main.async {
@@ -60,9 +63,8 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
         let url = URL(string: photoURL)
         cell.image.kf.setImage(with: url)
-        cell.albumTitle.text = "Album Title: \(albumTitle)"
-        cell.imageTitle.text = "Photo Title: \(phototitle)"
-        print(phototitle)
+        cell.albumTitle.text = "Album Title: \(albumTitle.capitalized)"
+        cell.imageTitle.text = "Photo Title: \(phototitle.capitalized)"
         return cell
     }
     
@@ -75,9 +77,9 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let h = 300.0
+        let h = photoView.frame.height
         let w = view.frame.width
-        return CGSize(width: h, height: w)
+        return CGSize(width: w, height: h)
     }
 }
 

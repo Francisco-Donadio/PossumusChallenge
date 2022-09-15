@@ -22,6 +22,8 @@ class AlbumDetailViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
+        self.navigationItem.title = albumTitle.capitalized
+        
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
