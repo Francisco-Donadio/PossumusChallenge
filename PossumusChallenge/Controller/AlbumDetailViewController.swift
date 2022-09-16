@@ -26,7 +26,7 @@ class AlbumDetailViewController: UIViewController {
         
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
+        layout.minimumLineSpacing = 1
         collectionView.collectionViewLayout = layout
         
         performPhotosRequest { photos in
@@ -74,9 +74,9 @@ extension AlbumDetailViewController: UICollectionViewDataSource, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let h = 80.0
-        let w = (view.frame.width / 4)
-        return CGSize(width: h, height: w)
+        let h = 70.0
+        let w = (view.frame.width / 6)
+        return CGSize(width: w, height: h)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
